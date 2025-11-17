@@ -1,45 +1,52 @@
 LongTermCare30/
 │
 ├─ public/                     # 靜態資源（圖片、icon）
-│   ├─ logo.png
+│   ├─ logo.png                ⏳ 待新增
 │   └─ data/                   # 如果你要放 JSON 可放這裡
-│       └─ abc_sites.json
+│       └─ abc_sites.json      ⏳ 待新增
 │
 ├─ src/
 │   ├─ api/                    # API 呼叫 or 加載資料
-│   │   ├─ fetchLTCData.ts     # 長照 ABC 資料載入
-│   │   └─ geocode.ts          # 地址地理編碼（選用）
+│   │   ├─ fetchLTCData.ts     ⏳ 待開發 - 長照 ABC 資料載入
+│   │   └─ geocode.ts          ⏳ 待開發 - 地址地理編碼（選用）
 │   │
 │   ├─ components/             # 可重複使用的 UI 元件
-│   │   ├─ Map.tsx             # 地圖元件（Leaflet 或 Google Maps）
-│   │   ├─ FilterPanel.tsx     # 篩選功能（縣市、區域、ABC 等）
-│   │   ├─ SearchBar.tsx       # 搜尋框
-│   │   ├─ Navbar.tsx          # 導覽列
-│   │   └─ Footer.tsx          # 頁尾
+│   │   ├─ Map.tsx             ⏳ 待開發 - 地圖元件（Leaflet 或 Google Maps）
+│   │   ├─ FilterPanel.tsx     ⏳ 待開發 - 篩選功能（縣市、區域、ABC 等）
+│   │   ├─ SearchBar.tsx       ⏳ 待開發 - 搜尋框
+│   │   ├─ Navbar.tsx          ✓ 已完成 - 導覽列
+│   │   └─ Footer.tsx          ⏳ 待開發 - 頁尾
 │   │
 │   ├─ pages/                  # 頁面
-│   │   ├─ Home.tsx            # 首頁：介紹 + 連結
-│   │   ├─ MapPage.tsx         # 地圖頁：地圖 + 篩選 + 列表
-│   │   └─ About.tsx           # 長照 3.0 說明
+│   │   ├─ Home.tsx            ✓ 已完成 - 首頁：介紹 + 連結
+│   │   ├─ About.tsx           ✓ 已完成 - 長照 3.0 說明
+│   │   ├─ MapPage.tsx         ✓ 已完成 - 地圖頁：地圖 + 篩選 + 列表
+│   │   ├─ Resources.tsx       ✓ 已完成 - 長照資源
+│   │   └─ Help.tsx            ✓ 已完成 - 聯絡與協助
 │   │
 │   ├─ types/                  # TypeScript 型別
-│   │   └─ ltc.ts              # 長照資料型別定義
+│   │   └─ ltc.ts              ⏳ 待開發 - 長照資料型別定義
 │   │
 │   ├─ utils/                  # 工具類 function
-│   │   ├─ parseCity.ts        # 從地址提取縣市（前三字）
-│   │   ├─ filterData.ts       # 做複合篩選
-│   │   └─ mapHelpers.ts       # 地圖工具
+│   │   ├─ parseCity.ts        ⏳ 待開發 - 從地址提取縣市（前三字）
+│   │   ├─ filterData.ts       ⏳ 待開發 - 做複合篩選
+│   │   └─ mapHelpers.ts       ⏳ 待開發 - 地圖工具
 │   │
 │   ├─ context/ (可選)         # 全局狀態，如 Filter 狀態
-│   │   └─ FilterContext.tsx
+│   │   └─ FilterContext.tsx   ⏳ 待開發 - 篩選狀態管理
 │   │
-│   ├─ App.tsx                 # 主架構
-│   ├─ main.tsx                # React 入口
-│   └─ index.css               # 全域樣式（你不用 Tailwind 用這即可）
+│   ├─ App.tsx                 ✓ 已完成 - 主架構 + React Router 設定
+│   ├─ App.css                 ✓ 已完成 - App 樣式
+│   ├─ main.tsx                ✓ 已完成 - React 入口
+│   └─ index.css               ✓ 已完成 - 全域樣式（Noto Sans TC、主題色）
 │
-├─ package.json
-├─ tsconfig.json
-└─ vite.config.ts
+├─ package.json                ✓ 已設定 - 包含 react-router-dom
+├─ tsconfig.json               ✓ 已設定
+└─ vite.config.ts              ✓ 已設定
+
+=== 專案進度摘要 ===
+✓ 已完成：基礎架構、路由系統、5個主要頁面、導覽列、全域樣式
+⏳ 待開發：地圖整合、資料載入、篩選功能、類型定義、工具函式
 
 提案報告書
 一、網站名稱及功能

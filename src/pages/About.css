@@ -1,0 +1,116 @@
+.about {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.about h1 {
+  font-size: 2.5rem;
+  color: #2aa9b4;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.about section {
+  margin-bottom: 3rem;
+  background: white;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.about h2 {
+  font-size: 1.75rem;
+  color: #333;
+  margin-bottom: 1.25rem;
+  border-left: 4px solid #2aa9b4;
+  padding-left: 1rem;
+}
+
+.intro p {
+  line-height: 1.8;
+  color: #555;
+  font-size: 1.1rem;
+}
+
+.abc-cards {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.abc-card {
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border-left: 5px solid;
+}
+
+.abc-card h3 {
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+}
+
+.abc-card p {
+  color: #555;
+  line-height: 1.6;
+}
+
+.a-level {
+  border-left-color: #2aa9b4;
+  background: #f0f9fa;
+}
+
+.b-level {
+  border-left-color: #e4be57;
+  background: #fef9ed;
+}
+
+.c-level {
+  border-left-color: #90c695;
+  background: #f4f9f5;
+}
+
+.services-info ul {
+  list-style: none;
+  padding: 0;
+}
+
+.services-info li {
+  padding: 0.75rem 0;
+  padding-left: 2rem;
+  position: relative;
+  color: #555;
+  line-height: 1.6;
+}
+
+.services-info li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #2aa9b4;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.contact-info {
+  text-align: center;
+  background: linear-gradient(135deg, #2aa9b4 0%, #e4be57 100%);
+  color: white;
+}
+
+.contact-info h2 {
+  color: white;
+  border-left: none;
+  padding-left: 0;
+}
+
+.hotline {
+  font-size: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.hotline strong {
+  font-size: 2.5rem;
+  display: block;
+  margin-top: 0.5rem;
+}
