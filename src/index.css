@@ -1,5 +1,5 @@
-/* 導入 Noto Sans TC 字體 */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap');
+/* 導入 Noto Serif TC 字體（思源宋體） */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600;700&display=swap');
 
 :root {
   /* 主題顏色 - 春江水暖 */
@@ -27,7 +27,7 @@ html {
 
 body {
   margin: 0;
-  font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-family: 'Noto Serif TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', serif;
   line-height: 1.6;
   color: var(--text-dark);
   background-color: var(--background-light);
