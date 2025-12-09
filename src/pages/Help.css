@@ -1,150 +1,355 @@
+/* 幫助頁面 - 新中式風格 */
 .help {
-  max-width: 900px;
+  max-width: 960px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: var(--spacing-lg);
 }
 
+/* 頁面標題 */
 .help h1 {
+  font-family: 'Noto Serif TC', 'Songti SC', 'SimSun', serif;
   font-size: 2.5rem;
-  color: #2aa9b4;
-  margin-bottom: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 2.5rem;
   text-align: center;
+  position: relative;
+  letter-spacing: 0.15em;
 }
 
+/* 標題裝飾 */
+.help h1::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  margin: 1rem auto 0;
+  border-radius: 2px;
+}
+
+/* 區塊通用樣式 */
 .help section {
-  margin-bottom: 3rem;
-  background: white;
-  padding: 2rem;
-  border-radius: 0.75rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: var(--spacing-xl);
+  background: var(--background-card);
+  padding: 2rem 2.5rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-light);
+  position: relative;
+  overflow: hidden;
 }
 
+/* 區塊水墨效果 */
+.help section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle at 100% 0%, rgba(42, 169, 180, 0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* 區塊標題 */
 .help h2 {
-  font-size: 1.75rem;
-  color: #333;
+  font-family: 'Noto Serif TC', 'Songti SC', 'SimSun', serif;
+  font-size: 1.625rem;
+  color: var(--ink-black);
   margin-bottom: 1.5rem;
-  border-left: 4px solid #2aa9b4;
-  padding-left: 1rem;
+  padding-left: 1.25rem;
+  position: relative;
+  letter-spacing: 0.08em;
 }
 
+/* 標題左側裝飾 */
+.help h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
+  border-radius: 2px;
+}
+
+/* 熱線區塊 - 特殊樣式 */
 .hotline-section {
-  background: transparent;
-  padding: 0;
-  box-shadow: none;
+  background: transparent !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
 }
 
+.hotline-section::before {
+  display: none;
+}
+
+/* 熱線卡片 - 印章風格 */
 .hotline-card {
-  background: linear-gradient(135deg, #2aa9b4 0%, #e4be57 100%);
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 40%, var(--secondary-color) 100%);
   color: white;
-  padding: 3rem 2rem;
-  border-radius: 1rem;
+  padding: 3.5rem 2.5rem;
+  border-radius: var(--radius-lg);
   text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+/* 水墨暈染背景 */
+.hotline-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background:
+    radial-gradient(circle at 30% 70%, rgba(255,255,255,0.12) 0%, transparent 30%),
+    radial-gradient(circle at 70% 30%, rgba(255,255,255,0.08) 0%, transparent 25%),
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 35%);
+  animation: inkFloat 15s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes inkFloat {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(-2%, 2%) rotate(2deg); }
+}
+
+/* 內框裝飾 */
+.hotline-card::after {
+  content: '';
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-md);
+  pointer-events: none;
 }
 
 .hotline-card h2 {
   color: white;
   border: none;
   padding: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   font-size: 1.5rem;
+  position: relative;
+  z-index: 1;
 }
 
+.hotline-card h2::before {
+  display: none;
+}
+
+/* 電話號碼 - 印章感 */
 .phone-number {
-  font-size: 4rem;
+  font-family: 'Noto Serif TC', 'Songti SC', 'SimSun', serif;
+  font-size: 4.5rem;
   font-weight: bold;
-  margin: 1rem 0;
-  letter-spacing: 0.5rem;
+  margin: 1.25rem 0;
+  letter-spacing: 0.3em;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* 電話號碼裝飾 */
+.phone-number::before,
+.phone-number::after {
+  content: '◆';
+  font-size: 0.4em;
+  vertical-align: middle;
+  margin: 0 0.5rem;
+  opacity: 0.6;
 }
 
 .description {
-  font-size: 1.25rem;
-  margin: 1.5rem 0;
+  font-size: 1.375rem;
+  margin: 1.75rem 0;
   opacity: 0.95;
+  position: relative;
+  z-index: 1;
+  letter-spacing: 0.08em;
+  line-height: 1.8;
 }
 
 .hours {
-  font-size: 1rem;
+  font-size: 1.05rem;
   opacity: 0.9;
-  margin-top: 1rem;
+  margin-top: 1.25rem;
+  position: relative;
+  z-index: 1;
+  letter-spacing: 0.05em;
 }
 
+/* FAQ 列表 */
 .faq-list {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
+/* FAQ 項目 - 摺扇風格 */
 .faq-item {
-  background: #f8f9fa;
-  border-radius: 0.5rem;
-  border: 1px solid #e0e0e0;
+  background: var(--background-card);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
   overflow: hidden;
-  transition: all 0.2s;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* 左側裝飾條 */
+.faq-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--border-light);
+  transition: background 0.3s ease;
 }
 
 .faq-item:hover {
-  border-color: #2aa9b4;
+  border-color: var(--primary-light);
+  box-shadow: var(--shadow-sm);
 }
 
+.faq-item:hover::before {
+  background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
+}
+
+/* FAQ 標題 */
 .faq-item summary {
-  padding: 1.25rem 1.5rem;
+  padding: 1.25rem 1.75rem;
+  padding-left: 2rem;
   cursor: pointer;
   font-weight: 600;
-  color: #333;
+  color: var(--text-dark);
   font-size: 1.1rem;
   user-select: none;
-  transition: background 0.2s;
+  transition: all 0.3s ease;
+  list-style: none;
+  position: relative;
+  letter-spacing: 0.03em;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+/* 展開指示器 */
+.faq-item summary::after {
+  content: '+';
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--primary-color);
+  transition: transform 0.3s ease;
 }
 
 .faq-item summary:hover {
-  background: #f0f9fa;
+  background: rgba(42, 169, 180, 0.05);
+  color: var(--primary-color);
 }
 
+/* 展開狀態 */
 .faq-item[open] summary {
-  background: #2aa9b4;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
   color: white;
 }
 
-.faq-item p {
-  padding: 1.25rem 1.5rem;
-  margin: 0;
-  color: #555;
-  line-height: 1.8;
-  border-top: 1px solid #e0e0e0;
+.faq-item[open] summary::after {
+  content: '−';
+  color: white;
 }
 
+.faq-item[open]::before {
+  background: var(--primary-color);
+}
+
+/* FAQ 內容 */
+.faq-item p {
+  padding: 1.5rem 2rem;
+  margin: 0;
+  color: var(--text-medium);
+  line-height: 1.9;
+  border-top: 1px solid var(--border-light);
+  background: linear-gradient(135deg, var(--paper-cream) 0%, var(--background-card) 100%);
+  letter-spacing: 0.02em;
+}
+
+/* 聯絡連結 */
 .contact-links {
   display: grid;
   gap: 1rem;
 }
 
+/* 聯絡項目 */
 .contact-link {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1.25rem 1.5rem;
-  background: #f8f9fa;
-  border-radius: 0.5rem;
+  gap: 1.25rem;
+  padding: 1.25rem 1.75rem;
+  background: var(--background-card);
+  border-radius: var(--radius-md);
   text-decoration: none;
-  color: #333;
-  border: 1px solid #e0e0e0;
-  transition: all 0.2s;
+  color: var(--text-dark);
+  border: 1px solid var(--border-light);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 連結裝飾 */
+.contact-link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--primary-color);
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
 }
 
 .contact-link:hover {
-  background: #f0f9fa;
-  border-color: #2aa9b4;
-  transform: translateX(4px);
+  background: linear-gradient(135deg, rgba(42, 169, 180, 0.05) 0%, var(--background-card) 100%);
+  border-color: var(--primary-light);
+  transform: translateX(6px);
+  box-shadow: var(--shadow-sm);
+}
+
+.contact-link:hover::before {
+  transform: scaleY(1);
 }
 
 .link-icon {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
+  flex-shrink: 0;
 }
 
+.contact-link span:not(.link-icon) {
+  font-size: 1.05rem;
+  letter-spacing: 0.03em;
+}
+
+/* 無障礙資訊 */
 .accessibility-info p {
-  color: #555;
-  line-height: 1.8;
-  margin-bottom: 1rem;
+  color: var(--text-medium);
+  line-height: 1.9;
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.02em;
 }
 
 .accessibility-info ul {
@@ -154,7 +359,120 @@
 }
 
 .accessibility-info li {
-  padding: 0.5rem 0;
-  color: #555;
+  padding: 0.75rem 0;
+  padding-left: 2rem;
+  color: var(--text-medium);
   font-size: 1.05rem;
+  position: relative;
+  border-bottom: 1px dashed var(--border-light);
+  transition: all 0.2s ease;
+}
+
+.accessibility-info li:last-child {
+  border-bottom: none;
+}
+
+.accessibility-info li:hover {
+  padding-left: 2.25rem;
+  color: var(--text-dark);
+}
+
+/* 列表項目裝飾 */
+.accessibility-info li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 0.75rem;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
+  font-weight: bold;
+  font-size: 0.875rem;
+  background: rgba(42, 169, 180, 0.1);
+  border-radius: 50%;
+}
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+  .help {
+    padding: var(--spacing-md);
+  }
+
+  .help h1 {
+    font-size: 2rem;
+    letter-spacing: 0.1em;
+  }
+
+  .help section {
+    padding: 1.5rem;
+  }
+
+  .help h2 {
+    font-size: 1.375rem;
+    padding-left: 1rem;
+  }
+
+  .hotline-card {
+    padding: 2.5rem 1.5rem;
+    border-radius: var(--radius-md);
+  }
+
+  .hotline-card::after {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+  }
+
+  .phone-number {
+    font-size: 3rem;
+    letter-spacing: 0.2em;
+  }
+
+  .phone-number::before,
+  .phone-number::after {
+    display: none;
+  }
+
+  .description {
+    font-size: 1.125rem;
+  }
+
+  .faq-item summary {
+    padding: 1rem 1.5rem;
+    padding-left: 1.5rem;
+    font-size: 1rem;
+  }
+
+  .faq-item summary::after {
+    right: 1rem;
+    font-size: 1.25rem;
+  }
+
+  .faq-item p {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .contact-link {
+    padding: 1rem 1.25rem;
+    gap: 1rem;
+  }
+
+  .link-icon {
+    font-size: 1.5rem;
+  }
+
+  .accessibility-info li {
+    padding-left: 1.75rem;
+    font-size: 1rem;
+  }
+
+  .accessibility-info li::before {
+    width: 18px;
+    height: 18px;
+    font-size: 0.75rem;
+  }
 }

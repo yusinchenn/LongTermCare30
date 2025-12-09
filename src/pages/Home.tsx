@@ -1,11 +1,32 @@
 import './Home.css';
+import heroImage from '../assets/home_main.jpg';
 
 function Home() {
   return (
     <div className="home">
-      <section className="hero">
-        <h1>長照 3.0</h1>
-        <p className="subtitle">完善的長期照顧服務，讓您的家人安心生活</p>
+      {/* 全幅首頁主視覺 */}
+      <section className="hero-image-section">
+        <div className="hero-image-container">
+          <img src={heroImage} alt="長照服務" className="hero-image" />
+          <div className="text-mask-overlay">
+            <div className="floating-text text-1">關懷</div>
+            <div className="floating-text text-2">照護</div>
+            <div className="floating-text text-3">陪伴</div>
+            <div className="floating-text text-4">健康</div>
+            <div className="floating-text text-5">長照</div>
+            <div className="floating-text text-6">溫暖</div>
+            <div className="floating-text text-7">安心</div>
+            <div className="floating-text text-8">守護</div>
+            <div className="floating-text text-9">服務</div>
+            <div className="floating-text text-10">愛心</div>
+            <div className="floating-text text-11">專業</div>
+            <div className="floating-text text-12">尊嚴</div>
+          </div>
+          <div className="hero-title-overlay">
+            <h1>長照 3.0</h1>
+            <p>完善的長期照顧服務，讓您的家人安心生活</p>
+          </div>
+        </div>
       </section>
 
       <section className="services">

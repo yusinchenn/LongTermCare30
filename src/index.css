@@ -1,20 +1,103 @@
-/* 導入 Noto Serif TC 字體（思源宋體） */
+/* 導入字體 - 思源宋體 */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* 主題顏色 - 春江水暖 */
-  --primary-color: #2aa9b4;
-  --secondary-color: #e4be57;
-  --text-dark: #333333;
-  --text-medium: #555555;
-  --text-light: #666666;
-  --background-light: #f5f7fa;
+  /* 主題顏色 - 春江水暖（保留主色調） */
+  --primary-color: #2aa9b4;        /* 青碧 - 主色 */
+  --primary-light: #48c4cf;        /* 淺青 */
+  --primary-dark: #1e8a94;         /* 深青 */
+  --secondary-color: #e4be57;      /* 金黃 - 輔色 */
+  --secondary-light: #f0d078;      /* 淺金 */
+  --secondary-dark: #c9a540;       /* 古金 */
+
+  /* 新中式配色 */
+  --ink-black: #1a1a1a;            /* 墨色 */
+  --ink-gray: #3d3d3d;             /* 濃墨 */
+  --paper-white: #faf8f5;          /* 宣紙白 */
+  --paper-cream: #f5f0e8;          /* 米色 */
+  --cloud-gray: #e8e4dc;           /* 雲霧灰 */
+  --bamboo-green: #6b8e6b;         /* 竹青 */
+  --plum-red: #8b4557;             /* 梅紅 */
+  --rosewood: #5d3a3a;             /* 紅木 */
+
+  /* 文字顏色 */
+  --text-dark: #2c2c2c;
+  --text-medium: #4a4a4a;
+  --text-light: #6b6b6b;
+  --text-muted: #8a8a8a;
+
+  /* 背景顏色 */
+  --background-light: var(--paper-cream);
+  --background-card: var(--paper-white);
   --white: #ffffff;
-  --border-light: #e0e0e0;
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+
+  /* 邊框與分隔 */
+  --border-light: #d4cfc5;
+  --border-medium: #b8b0a0;
+  --border-gold: var(--secondary-color);
+
+  /* 陰影 - 水墨暈染感 */
+  --shadow-sm: 0 2px 8px rgba(45, 45, 45, 0.06);
+  --shadow-md: 0 4px 20px rgba(45, 45, 45, 0.08);
+  --shadow-lg: 0 8px 32px rgba(45, 45, 45, 0.12);
+  --shadow-ink: 0 4px 16px rgba(26, 26, 26, 0.15);
+
+  /* 新中式圓角 - 略顯方正 */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* 間距 */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
 }
 
+/* 新中式裝飾圖案 */
+.chinese-border {
+  border: 1px solid var(--border-medium);
+  position: relative;
+}
+
+.chinese-border::before,
+.chinese-border::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--secondary-color);
+}
+
+.chinese-border::before {
+  top: -2px;
+  left: -2px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.chinese-border::after {
+  bottom: -2px;
+  right: -2px;
+  border-left: none;
+  border-top: none;
+}
+
+/* 回字紋裝飾邊框 */
+.pattern-border {
+  background-image:
+    linear-gradient(90deg, var(--secondary-color) 50%, transparent 50%),
+    linear-gradient(90deg, var(--secondary-color) 50%, transparent 50%),
+    linear-gradient(0deg, var(--secondary-color) 50%, transparent 50%),
+    linear-gradient(0deg, var(--secondary-color) 50%, transparent 50%);
+  background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+  background-size: 8px 1px, 8px 1px, 1px 8px, 1px 8px;
+  background-position: 0 0, 0 100%, 0 0, 100% 0;
+  padding: 2px;
+}
+
+/* 基礎重置 */
 * {
   margin: 0;
   padding: 0;
@@ -23,27 +106,35 @@
 
 html {
   font-size: 16px;
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  font-family: 'Noto Serif TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', serif;
-  line-height: 1.6;
+  font-family: 'Noto Serif TC', 'Songti SC', 'SimSun', serif;
+  line-height: 1.8;
   color: var(--text-dark);
   background-color: var(--background-light);
   min-width: 320px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image:
+    radial-gradient(circle at 20% 80%, rgba(42, 169, 180, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(228, 190, 87, 0.03) 0%, transparent 50%);
+  overflow-x: hidden;
 }
 
 #root {
   min-height: 100vh;
 }
 
+/* 標題字體 */
 h1, h2, h3, h4, h5, h6 {
+  font-family: 'Noto Serif TC', 'Songti SC', 'SimSun', serif;
   font-weight: 600;
-  line-height: 1.3;
-  color: var(--text-dark);
+  line-height: 1.4;
+  color: var(--ink-black);
+  letter-spacing: 0.05em;
 }
 
 h1 {
@@ -51,7 +142,7 @@ h1 {
 }
 
 h2 {
-  font-size: 2rem;
+  font-size: 1.875rem;
 }
 
 h3 {
@@ -60,29 +151,172 @@ h3 {
 
 p {
   margin-bottom: 1rem;
+  letter-spacing: 0.02em;
 }
 
+/* 連結樣式 - 含底線裝飾 */
 a {
   color: var(--primary-color);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
 a:hover {
-  color: #248a93;
+  color: var(--primary-dark);
 }
 
+/* 帶裝飾的連結 */
+a.decorated::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  transition: width 0.3s ease;
+}
+
+a.decorated:hover::after {
+  width: 100%;
+}
+
+/* 按鈕基礎樣式 */
 button {
   font-family: inherit;
   cursor: pointer;
   border: none;
   outline: none;
-  transition: all 0.2s;
+  transition: all 0.3s ease;
+  letter-spacing: 0.05em;
 }
 
 button:focus-visible {
   outline: 2px solid var(--primary-color);
   outline-offset: 2px;
+}
+
+/* 主按鈕樣式 - 新中式 */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  color: white;
+  padding: 0.875rem 2rem;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* 金色按鈕 */
+.btn-gold {
+  background: linear-gradient(135deg, var(--secondary-color) 0%, var(--secondary-dark) 100%);
+  color: var(--ink-black);
+}
+
+/* 分隔線 - 中式 */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: var(--spacing-lg) 0;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-medium), transparent);
+}
+
+.divider-text {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+/* 中式裝飾點 */
+.dot-decoration {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--secondary-color);
+  transform: rotate(45deg);
+  margin: 0 0.5rem;
+}
+
+/* 卡片基礎樣式 */
+.card-chinese {
+  background: var(--background-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-chinese::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+/* 水墨背景效果 */
+.ink-wash {
+  position: relative;
+}
+
+.ink-wash::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(ellipse at 10% 90%, rgba(42, 169, 180, 0.08) 0%, transparent 40%),
+    radial-gradient(ellipse at 90% 10%, rgba(228, 190, 87, 0.06) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+/* 章印效果 */
+.seal-stamp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 2px solid var(--plum-red);
+  color: var(--plum-red);
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 4px;
+  transform: rotate(-5deg);
 }
 
 /* 無障礙設計 - 高對比度支援 */
@@ -104,6 +338,26 @@ button:focus-visible {
   }
 
   h2 {
-    font-size: 1.75rem;
+    font-size: 1.625rem;
   }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+}
+
+/* 選中文字顏色 */
+::selection {
+  background: rgba(42, 169, 180, 0.2);
+  color: var(--ink-black);
+}
+
+/* 隱藏滾動條但保留滾動功能 */
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Opera */
 }
