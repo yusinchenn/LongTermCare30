@@ -84,7 +84,56 @@
   color: var(--secondary-color);
 }
 
-/* 介紹段落 */
+/* ==================== Hero Section ==================== */
+.hero {
+  text-align: center;
+  background: linear-gradient(135deg, rgba(42, 169, 180, 0.08) 0%, rgba(228, 190, 87, 0.08) 100%);
+  border: none;
+  padding: 3rem 2rem !important;
+}
+
+.hero::before {
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle at 100% 0%, rgba(228, 190, 87, 0.1) 0%, transparent 60%);
+}
+
+.hero-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  padding: 0.5rem 1.25rem;
+  border-radius: 50px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
+}
+
+.hero h1 {
+  font-size: 2.75rem;
+  line-height: 1.4;
+  margin-bottom: 1.5rem;
+  color: var(--ink-black);
+}
+
+.hero h1::after {
+  display: none;
+}
+
+.hero h1 .highlight {
+  color: var(--primary-color);
+  display: inline;
+}
+
+.hero-desc {
+  font-size: 1.125rem;
+  color: var(--text-medium);
+  line-height: 1.9;
+  letter-spacing: 0.03em;
+}
+
+/* ==================== Intro Section ==================== */
 .intro p {
   line-height: 2;
   color: var(--text-medium);
@@ -93,7 +142,187 @@
   letter-spacing: 0.03em;
 }
 
-/* ABC 分級卡片區域 */
+.intro strong {
+  color: var(--primary-dark);
+}
+
+/* ==================== Strategies Section (8 Goals) ==================== */
+.strategies h2 {
+  text-align: center;
+  padding-left: 0;
+}
+
+.strategies h2::before,
+.strategies h2::after {
+  display: none;
+}
+
+.strategy-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.strategy-card {
+  background: var(--background-card);
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  border-top: 4px solid;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.strategy-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.strategy-card h3 {
+  font-family: 'Noto Serif TC', 'Songti SC', 'SimSun', serif;
+  font-size: 1.125rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.strategy-card p {
+  font-size: 0.9rem;
+  color: var(--text-medium);
+  line-height: 1.7;
+}
+
+/* Strategy card colors */
+.strategy-card.orange { border-top-color: #f97316; }
+.strategy-card.orange h3 { color: #ea580c; }
+
+.strategy-card.teal { border-top-color: var(--primary-color); }
+.strategy-card.teal h3 { color: var(--primary-dark); }
+
+.strategy-card.blue { border-top-color: #3b82f6; }
+.strategy-card.blue h3 { color: #2563eb; }
+
+.strategy-card.rose { border-top-color: #f43f5e; }
+.strategy-card.rose h3 { color: #e11d48; }
+
+.strategy-card.indigo { border-top-color: #6366f1; }
+.strategy-card.indigo h3 { color: #4f46e5; }
+
+.strategy-card.emerald { border-top-color: var(--bamboo-green); }
+.strategy-card.emerald h3 { color: #4a6b4a; }
+
+.strategy-card.violet { border-top-color: #8b5cf6; }
+.strategy-card.violet h3 { color: #7c3aed; }
+
+.strategy-card.gray { border-top-color: #6b7280; }
+.strategy-card.gray h3 { color: #4b5563; }
+
+/* ==================== Timeline Section ==================== */
+.timeline h2 {
+  text-align: center;
+  padding-left: 0;
+}
+
+.timeline h2::before,
+.timeline h2::after {
+  display: none;
+}
+
+.timeline-items {
+  position: relative;
+  padding-left: 2rem;
+  margin-top: 2rem;
+}
+
+.timeline-items::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
+  border-radius: 2px;
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 2rem;
+  padding-left: 1.5rem;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -2rem;
+  top: 0.25rem;
+  width: 14px;
+  height: 14px;
+  background: var(--background-card);
+  border: 3px solid var(--primary-color);
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.timeline-item:hover::before {
+  background: var(--primary-color);
+  transform: scale(1.2);
+}
+
+.timeline-year {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-content {
+  background: var(--background-card);
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-light);
+  transition: all 0.3s ease;
+}
+
+.timeline-item:hover .timeline-content {
+  transform: translateX(8px);
+  box-shadow: var(--shadow-md);
+}
+
+.timeline-tag {
+  display: inline-block;
+  background: rgba(42, 169, 180, 0.1);
+  color: var(--primary-dark);
+  padding: 0.125rem 0.5rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-content h3 {
+  font-family: 'Noto Serif TC', 'Songti SC', 'SimSun', serif;
+  font-size: 1.125rem;
+  color: var(--ink-black);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+.timeline-content p {
+  font-size: 0.9rem;
+  color: var(--text-medium);
+  line-height: 1.7;
+}
+
+/* ==================== ABC 分級卡片區域 ==================== */
 .abc-cards {
   display: grid;
   gap: 1.5rem;
@@ -208,7 +437,79 @@
   color: white;
 }
 
-/* 服務項目列表 */
+/* ==================== Comparison Table ==================== */
+.comparison h2 {
+  text-align: center;
+  padding-left: 0;
+}
+
+.comparison h2::before,
+.comparison h2::after {
+  display: none;
+}
+
+.comparison-table {
+  overflow-x: auto;
+  margin-top: 1.5rem;
+}
+
+.comparison-table table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+.comparison-table thead tr {
+  background: var(--ink-black);
+  color: white;
+}
+
+.comparison-table th {
+  padding: 1rem 1.25rem;
+  text-align: left;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.comparison-table th.col-2 {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.comparison-table th.col-3 {
+  background: var(--primary-color);
+}
+
+.comparison-table td {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-medium);
+  line-height: 1.6;
+}
+
+.comparison-table tbody tr:hover {
+  background: rgba(42, 169, 180, 0.03);
+}
+
+.comparison-table .row-header {
+  font-weight: 600;
+  color: var(--ink-black);
+}
+
+.comparison-table .highlight-cell {
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+
+.comparison-table .badge {
+  display: inline-block;
+  background: rgba(42, 169, 180, 0.15);
+  color: var(--primary-dark);
+  padding: 0.125rem 0.5rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+}
+
+/* ==================== 服務項目列表 ==================== */
 .services-info ul {
   list-style: none;
   padding: 0;
@@ -252,7 +553,60 @@
   border-radius: 50%;
 }
 
-/* 聯絡資訊區塊 - 特殊樣式 */
+/* ==================== References Section ==================== */
+.references h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.reference-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.reference-link {
+  display: block;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.reference-link:hover {
+  border-color: var(--primary-color);
+  background: rgba(42, 169, 180, 0.03);
+  transform: translateX(4px);
+}
+
+.reference-content h4 {
+  font-family: 'Noto Serif TC', 'Songti SC', 'SimSun', serif;
+  font-size: 1rem;
+  color: var(--ink-black);
+  margin-bottom: 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.reference-link:hover .reference-content h4 {
+  color: var(--primary-dark);
+}
+
+.reference-content p {
+  font-size: 0.875rem;
+  color: var(--text-light);
+}
+
+.disclaimer {
+  margin-top: 1.5rem;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  text-align: center;
+}
+
+/* ==================== 聯絡資訊區塊 - 特殊樣式 ==================== */
 .contact-info {
   text-align: center;
   background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 50%, var(--secondary-color) 100%);
@@ -318,7 +672,7 @@
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* 響應式調整 */
+/* ==================== 響應式調整 ==================== */
 @media (max-width: 768px) {
   .about {
     padding: var(--spacing-md);
@@ -342,10 +696,53 @@
     display: none;
   }
 
+  /* Hero responsive */
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+  }
+
+  .hero-desc br {
+    display: none;
+  }
+
+  /* Intro responsive */
   .intro p {
     font-size: 1rem;
   }
 
+  /* Strategy cards responsive */
+  .strategy-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .strategy-card {
+    padding: 1.25rem;
+  }
+
+  /* Timeline responsive */
+  .timeline-items {
+    padding-left: 1.5rem;
+  }
+
+  .timeline-item {
+    padding-left: 1rem;
+  }
+
+  .timeline-item::before {
+    left: -1.5rem;
+    width: 12px;
+    height: 12px;
+  }
+
+  .timeline-content {
+    padding: 1rem;
+  }
+
+  /* ABC cards responsive */
   .abc-card {
     padding: 1.25rem 1.5rem;
   }
@@ -354,6 +751,19 @@
     font-size: 1.125rem;
   }
 
+  /* Comparison table responsive */
+  .comparison-table {
+    margin: 1rem -1rem;
+    padding: 0 1rem;
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+    padding: 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  /* Services list responsive */
   .services-info li {
     padding-left: 2rem;
   }
@@ -364,8 +774,36 @@
     font-size: 0.875rem;
   }
 
+  /* References responsive */
+  .reference-link {
+    padding: 0.875rem 1rem;
+  }
+
+  .reference-content h4 {
+    font-size: 0.9rem;
+  }
+
+  /* Hotline responsive */
   .hotline strong {
     font-size: 2.5rem;
     letter-spacing: 0.15em;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 1.75rem;
+  }
+
+  .strategy-card h3 {
+    font-size: 1rem;
+  }
+
+  .timeline-year {
+    font-size: 0.75rem;
+  }
+
+  .timeline-content h3 {
+    font-size: 1rem;
   }
 }
