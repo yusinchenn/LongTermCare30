@@ -1,413 +1,475 @@
 <!DOCTYPE html>
-<html lang="zh-Hant-TW">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>台灣長照 3.0：邁向健康台灣的願景</title>
-    <meta name="description" content="台灣長照3.0政策整理，包含醫養合一、智慧科技導入、家庭支持強化等核心重點與歷程時間軸。">
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Noto Sans TC -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <title>長照 3.0 資源導覽</title>
     <style>
-        body {
-            font-family: 'Noto Sans TC', sans-serif;
-            scroll-behavior: smooth;
-        }
-        .timeline-line {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
+        /* --- 基礎設定 --- */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
             height: 100%;
-            background-color: #e5e7eb;
-            z-index: 0;
+            overflow: hidden;
+            background-color: #111;
+            font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
         }
-        .timeline-item.active .timeline-dot {
-            background-color: #f97316; /* Orange-500 */
-            border-color: #fff7ed; /* Orange-50 */
-            transform: scale(1.2);
+
+        .layer-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
         }
-        .timeline-content {
-            opacity: 0.5;
-            transition: all 0.3s ease;
-            filter: blur(1px);
+
+        /* --- 1. 底圖層 --- */
+        .bg-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+            z-index: 1;
+            filter: brightness(0.5);
         }
-        .timeline-item.active .timeline-content {
+        .bg-slide.active {
             opacity: 1;
-            filter: blur(0);
-            transform: translateY(-5px);
         }
-        /* Hide scrollbar for clean horizontal scroll if needed */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
+
+        /* --- 2. 文字層 --- */
+        .text-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            pointer-events: none; 
         }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+
+        .text-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: translateX(100vw);
+            display: flex;
+            box-sizing: border-box;
         }
+
+        .layout-bottom-right {
+            justify-content: flex-end;
+            align-items: flex-end;
+            padding-bottom: 15vh;
+            padding-right: 10vw;
+            text-align: right;
+        }
+
+        .layout-center-below {
+            justify-content: center;
+            align-items: center;
+            padding-top: 120px; 
+        }
+
+        /* --- 3. 視覺層 (最上層) --- */
+        .visual-wrapper {
+            position: absolute;
+            top: 0; 
+            left: 0;
+            width: 100%; 
+            height: 100%;
+            z-index: 10; 
+            pointer-events: none; 
+        }
+
+        .visual-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: translateY(100vh);
+            display: flex;
+            box-sizing: border-box;
+            pointer-events: none;
+        }
+
+        .layout-top-left {
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding-top: 15vh;
+            padding-left: 10vw;
+        }
+
+        .layout-center {
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- Page 1 Icons --- */
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 60px);
+            gap: 15px;
+            pointer-events: auto;
+        }
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(4px);
+            transition: transform 0.3s;
+        }
+        .icon-box:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .icon-box svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
+        /* --- Page 2 Timeline --- */
+        .vertical-timeline {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            line-height: 2;
+            letter-spacing: 2px;
+            border-right: 3px solid #ec4899;
+            padding-right: 15px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            white-space: pre-line;
+        }
+
+        /* --- Page 3 Search Bar (修改版) --- */
+        .search-container {
+            pointer-events: auto; 
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            width: 400px;
+            cursor: text;
+            transition: background 0.3s;
+        }
+        /* 移除原本的 box-shadow: purple... 改為單純背景變亮 */
+        .search-container:hover, .search-container:focus-within {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* 搜尋圖示：使用 SVG 取代 Emoji */
+        .search-icon-svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .search-input {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            width: 100%;
+            outline: none;
+        }
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* --- 字體樣式 --- */
+        .main-title {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 5px 20px rgba(0,0,0,0.6);
+            line-height: 1.3;
+        }
+        .num-large {
+            font-size: 5rem;
+            font-family: 'Arial Black', sans-serif;
+            vertical-align: bottom;
+        }
+        .arrow-thin {
+            font-size: 2.5rem;
+            font-weight: 100;
+            font-family: sans-serif;
+            opacity: 0.8;
+            margin: 0 10px;
+            vertical-align: middle;
+            position: relative;
+            top: -5px;
+        }
+
+        /* --- 動畫 Helper Classes --- */
+        .anim-transition {
+            transition: transform 1.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.6s ease;
+        }
+        .pos-center { opacity: 1 !important; transform: translate(0, 0) !important; }
+        .pos-top    { opacity: 0 !important; transform: translateY(-100vh) !important; }
+        .pos-bottom { opacity: 0 !important; transform: translateY(100vh) !important; }
+        .pos-left   { opacity: 0 !important; transform: translateX(-100vw) !important; }
+        .pos-right  { opacity: 0 !important; transform: translateX(100vw) !important; }
+        .no-anim    { transition: none !important; }
+
+        /* --- 指示器 (Dots) 與 全體變形動畫 --- */
+        .indicators {
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            gap: 25px; 
+            pointer-events: auto;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: transparent; /* 預設透明 (空心) */
+            border: 2px solid rgba(255,255,255,0.6);
+            cursor: pointer;
+            box-sizing: border-box; 
+            
+            /* 背景顏色的變化 (實心/空心) 獨立於變形動畫 */
+            transition: background-color 0.5s ease;
+        }
+
+        /* 當前頁面的點變為實心 */
+        .dot.current {
+            background-color: white;
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+            border-color: white;
+        }
+
+        /* --- 變形動畫 Keyframes --- 
+           所有點一起執行：縮小 -> 改變形狀 -> 放大
+        */
+
+        /* 第一頁：變成圓形 */
+        @keyframes morphToCircle {
+            0%   { transform: scale(1); }
+            50%  { transform: scale(0.5); border-radius: 50%; } /* 中間縮小 */
+            100% { transform: scale(1.2); border-radius: 50%; } /* 最終回彈 (稍微放大一點點視覺平衡) */
+        }
+
+        /* 第二頁：變成正方形 */
+        @keyframes morphToSquare {
+            0%   { transform: scale(1); }
+            50%  { transform: scale(0.5); border-radius: 2px; transform: scale(0.5) rotate(0deg); } 
+            100% { transform: scale(1.2); border-radius: 0px; transform: scale(1.2) rotate(0deg); }
+        }
+
+        /* 第三頁：變成菱形 (轉45度) */
+        @keyframes morphToDiamond {
+            0%   { transform: scale(1); }
+            50%  { transform: scale(0.5) rotate(22.5deg); border-radius: 2px; }
+            100% { transform: scale(1.2) rotate(45deg); border-radius: 0px; }
+        }
+
+        /* 用於 JS 套用的 class */
+        .anim-circle {
+            animation: morphToCircle 1.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+        .anim-square {
+            animation: morphToSquare 1.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+        .anim-diamond {
+            animation: morphToDiamond 1.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800">
+<body>
 
-    <!-- Navbar -->
-    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <i data-lucide="heart-handshake" class="text-orange-500 w-8 h-8"></i>
-                <span class="text-xl font-bold text-slate-800 tracking-wide">長照 3.0 專題</span>
-            </div>
-            <div class="hidden md:flex gap-6 text-sm font-medium text-slate-600">
-                <a href="#about" class="hover:text-orange-500 transition">政策願景</a>
-                <a href="#strategies" class="hover:text-orange-500 transition">八大目標</a>
-                <a href="#timeline" class="hover:text-orange-500 transition">政策歷程</a>
-                <a href="#comparison" class="hover:text-orange-500 transition">差異比較</a>
-                <a href="#references" class="hover:text-orange-500 transition">參考資料</a>
+    <div class="layer-container">
+        <img class="bg-slide active" src="https://picsum.photos/1920/1080?random=1" alt="bg1">
+        <img class="bg-slide" src="https://picsum.photos/1920/1080?random=2" alt="bg2">
+        <img class="bg-slide" src="https://picsum.photos/1920/1080?random=3" alt="bg3">
+    </div>
+
+    <div class="text-wrapper">
+        <div class="text-item layout-bottom-right pos-center anim-transition">
+            <div class="main-title">
+                長照 <span class="num-large">2.0</span> <span class="arrow-thin">→</span> <span class="num-large">3.0</span>
             </div>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header class="relative pt-32 pb-20 bg-gradient-to-br from-orange-50 to-amber-100 overflow-hidden">
-        <div class="absolute top-0 right-0 w-1/3 h-full bg-orange-100/50 rounded-l-full blur-3xl -z-10"></div>
-        <div class="container mx-auto px-4 text-center">
-            <div class="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-orange-600 uppercase bg-orange-200 rounded-full">
-                2026 正式啟動
-            </div>
-            <h1 class="text-4xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight">
-                打造健康台灣<br>
-                <span class="text-orange-500">長照 3.0</span> 全面升級
-            </h1>
-            <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-8">
-                從「在地老化」邁向「醫養合一」，結合智慧科技與家庭支持，<br>為超高齡社會建立更完善的照顧網絡。
-            </p>
-            <div class="flex justify-center gap-4">
-                <a href="#strategies" class="px-8 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-lg shadow-lg transition font-medium">
-                    核心重點
-                </a>
-                <a href="#timeline" class="px-8 py-3 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 rounded-lg shadow-sm transition font-medium">
-                    查看時間軸
-                </a>
+        <div class="text-item layout-bottom-right pos-right anim-transition">
+            <div class="main-title">
+                健康老化、在地安老、<br>安寧善終
             </div>
         </div>
-    </header>
-
-    <!-- About Section -->
-    <section id="about" class="py-16 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="max-w-3xl mx-auto text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4 text-slate-800">什麼是長照 3.0？</h2>
-                <div class="w-16 h-1 bg-orange-500 mx-auto rounded"></div>
-                <p class="mt-6 text-slate-600 leading-relaxed text-justify md:text-center">
-                    隨著台灣即將進入超高齡社會，衛福部規劃於 2026 年（民國 115 年）正式推動「長照 3.0」。
-                    相較於長照 2.0 著重於服務據點的普及（ABC 模式），3.0 更強調<strong>「醫療與照顧的整合」</strong>、<strong>「智慧科技導入」</strong>以及<strong>「強化重症與家庭支持」</strong>。
-                    願景是打造一個結合醫療、長照、社福與家庭的連續性照顧體系。
-                </p>
+        <div class="text-item layout-center-below pos-right anim-transition">
+            <div class="main-title">
+                尋找你要的資源
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Strategies Section (Grid) -->
-    <section id="strategies" class="py-16 bg-slate-50">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">衛福部規劃八大重點目標</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Card 1 -->
-                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition border-t-4 border-orange-400 group">
-                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-orange-500 transition">
-                        <i data-lucide="activity" class="text-orange-600 group-hover:text-white transition"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">醫養合一</h3>
-                    <p class="text-slate-600 text-sm">強化醫療與長照無縫接軌，推動「在宅責任醫療網」，出院即啟動返家照顧計畫。</p>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition border-t-4 border-teal-400 group">
-                    <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-teal-500 transition">
-                        <i data-lucide="cpu" class="text-teal-600 group-hover:text-white transition"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">智慧科技導入</h3>
-                    <p class="text-slate-600 text-sm">推動智慧輔具租賃（3年6萬額度），導入 AI 監測與照顧紀錄，減輕人力負擔。</p>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition border-t-4 border-blue-400 group">
-                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-500 transition">
-                        <i data-lucide="users" class="text-blue-600 group-hover:text-white transition"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">強化家庭支持</h3>
-                    <p class="text-slate-600 text-sm">放寬外籍看護家庭使用社區服務，提供醫院共聘護佐補助，增加喘息服務。</p>
-                </div>
-
-                <!-- Card 4 -->
-                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition border-t-4 border-rose-400 group">
-                    <div class="w-12 h-12 bg-rose-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-rose-500 transition">
-                        <i data-lucide="bed-double" class="text-rose-600 group-hover:text-white transition"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">提升機構量能</h3>
-                    <p class="text-slate-600 text-sm">增設夜間照顧與緊急安置床位，改善住宿式機構品質，縮短城鄉差距。</p>
-                </div>
-                
-                <!-- Additional Cards for remaining goals -->
-                 <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition border-t-4 border-indigo-400 group">
-                    <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-indigo-500 transition">
-                        <i data-lucide="heart-pulse" class="text-indigo-600 group-hover:text-white transition"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">健康促進與共生</h3>
-                    <p class="text-slate-600 text-sm">擴大社區據點，納入年輕型失智者，打造不分年齡的共生社區。</p>
-                </div>
-
-                 <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition border-t-4 border-emerald-400 group">
-                    <div class="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-emerald-500 transition">
-                        <i data-lucide="accessibility" class="text-emerald-600 group-hover:text-white transition"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">積極復能</h3>
-                    <p class="text-slate-600 text-sm">針對急性後期（PAC）個案，在日照與居家場域導入功能性復能訓練。</p>
-                </div>
-
-                 <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition border-t-4 border-violet-400 group">
-                    <div class="w-12 h-12 bg-violet-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-violet-500 transition">
-                        <i data-lucide="graduation-cap" class="text-violet-600 group-hover:text-white transition"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">人力專業發展</h3>
-                    <p class="text-slate-600 text-sm">建立照服員職級與分級派工制度，擴大中階技術人力培訓，提升專業形象。</p>
-                </div>
-
-                 <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition border-t-4 border-gray-400 group">
-                    <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-gray-500 transition">
-                        <i data-lucide="flower-2" class="text-gray-600 group-hover:text-white transition"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">落實安寧善終</h3>
-                    <p class="text-slate-600 text-sm">推廣預立醫療照護諮商（ACP），提供特定族群免費諮商，尊嚴善終。</p>
-                </div>
+    <div class="visual-wrapper">
+        <div class="visual-item layout-top-left pos-center anim-transition">
+            <div class="icon-grid">
+                <div class="icon-box"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
+                <div class="icon-box"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div>
+                <div class="icon-box"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+                <div class="icon-box"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                <div class="icon-box"><svg viewBox="0 0 24 24"><circle cx="12" cy="4" r="2"/><path d="M19 13v-2c-1.54.02-3.09-.75-4.07-1.83l-1.29-1.43c-.17-.19-.44-.34-.73-.34-.18 0-.35.06-.49.16l-4.18 2.76 1.05 1.6 2.62-1.73V20h2v-6h2v6h2v-7h1z"/></svg></div>
             </div>
         </div>
-    </section>
-
-    <!-- Interactive Timeline Section -->
-    <section id="timeline" class="py-20 bg-white overflow-hidden">
-        <div class="container mx-auto px-4 relative">
-            <h2 class="text-3xl font-bold text-center mb-2">台灣長照政策演進</h2>
-            <p class="text-center text-slate-500 mb-16">點擊年份查看詳細歷程</p>
-
-            <div class="relative max-w-4xl mx-auto">
-                <!-- Vertical Line -->
-                <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 -ml-[1px]"></div>
-
-                <!-- Timeline Items Container -->
-                <div id="timeline-container">
-                    <!-- Javascript will render items here -->
-                </div>
+        <div class="visual-item layout-top-left pos-bottom anim-transition">
+            <div class="vertical-timeline">
+                2025/09 第一階段
+                2026/01 第二階段
+                2026/07 第三階段
             </div>
         </div>
-    </section>
-
-    <!-- Comparison Table -->
-    <section id="comparison" class="py-16 bg-slate-50">
-        <div class="container mx-auto px-4 max-w-5xl">
-            <h2 class="text-3xl font-bold text-center mb-10">長照 2.0 vs 長照 3.0 超級比一比</h2>
-            <div class="overflow-x-auto bg-white rounded-xl shadow-lg">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-slate-800 text-white">
-                            <th class="p-4 md:p-6 w-1/4">比較項目</th>
-                            <th class="p-4 md:p-6 w-1/3 bg-slate-700">長照 2.0</th>
-                            <th class="p-4 md:p-6 w-1/3 bg-orange-600">長照 3.0 (升級版)</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-slate-700 divide-y divide-slate-100">
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 md:p-6 font-bold">核心理念</td>
-                            <td class="p-4 md:p-6">在地老化、社區照顧 (ABC據點)</td>
-                            <td class="p-4 md:p-6 font-semibold text-orange-600">醫養合一、健康台灣</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 md:p-6 font-bold">服務對象</td>
-                            <td class="p-4 md:p-6">65歲以上失能、50歲以上失智等</td>
-                            <td class="p-4 md:p-6">新增 <span class="bg-orange-100 text-orange-800 px-1 rounded">年輕型失智</span>、急性後期(PAC)患者</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 md:p-6 font-bold">家庭支持</td>
-                            <td class="p-4 md:p-6">有限度的喘息服務</td>
-                            <td class="p-4 md:p-6">放寬外籍看護家庭使用社區服務、喘息升級</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 md:p-6 font-bold">科技應用</td>
-                            <td class="p-4 md:p-6">少量試辦</td>
-                            <td class="p-4 md:p-6">全面導入 <span class="bg-orange-100 text-orange-800 px-1 rounded">AI與智慧輔具租賃</span> (最高6萬補助)</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-4 md:p-6 font-bold">醫療銜接</td>
-                            <td class="p-4 md:p-6">照管專員評估，銜接較弱</td>
-                            <td class="p-4 md:p-6">出院準備計畫、在宅責任醫療網</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="visual-item layout-center pos-bottom anim-transition">
+            <div class="search-container">
+                <svg class="search-icon-svg" viewBox="0 0 24 24">
+                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                </svg>
+                <input type="text" class="search-input" placeholder="輸入長照資源關鍵字...">
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- References Section -->
-    <section id="references" class="py-12 bg-white border-t border-slate-200">
-        <div class="container mx-auto px-4 max-w-4xl">
-            <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
-                <i data-lucide="book-open" class="text-slate-400"></i>
-                參考資料索引
-            </h3>
-            <div class="space-y-4">
-                <a href="https://www.mohw.gov.tw/cp-16-82028-1.html" target="_blank" class="block p-4 border border-slate-200 rounded-lg hover:border-orange-500 hover:bg-orange-50 transition group">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h4 class="font-bold text-slate-800 group-hover:text-orange-700">衛福部：推動長照「三升五顧」智慧照顧全上路</h4>
-                            <p class="text-sm text-slate-500 mt-1">衛生福利部官方新聞稿 (2025)</p>
-                        </div>
-                        <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-orange-500"></i>
-                    </div>
-                </a>
-                <a href="https://www.ey.gov.tw/Page/5A8A0CB5B41DA11E/fcf4a012-8aca-4dae-b868-3a848fcaafe7" target="_blank" class="block p-4 border border-slate-200 rounded-lg hover:border-orange-500 hover:bg-orange-50 transition group">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h4 class="font-bold text-slate-800 group-hover:text-orange-700">行政院：實現「健康老化、在地安老」願景</h4>
-                            <p class="text-sm text-slate-500 mt-1">行政院重要政策說明</p>
-                        </div>
-                        <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-orange-500"></i>
-                    </div>
-                </a>
-                 <a href="https://www.ankecare.com/article/3561-2025-03-13-08-50-32" target="_blank" class="block p-4 border border-slate-200 rounded-lg hover:border-orange-500 hover:bg-orange-50 transition group">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h4 class="font-bold text-slate-800 group-hover:text-orange-700">長照 3.0 明年啟動 衛福部詳細規劃</h4>
-                            <p class="text-sm text-slate-500 mt-1">AnkeCare 創新長照新聞</p>
-                        </div>
-                        <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-orange-500"></i>
-                    </div>
-                </a>
-            </div>
-            <p class="text-xs text-slate-400 mt-8 text-center">
-                資料整理時間：2025年12月。本網頁為資訊整理用途，具體政策與補助金額請以衛生福利部最新公告為準。
-            </p>
-        </div>
-    </section>
+    <div class="indicators">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
 
-    <!-- Footer -->
-    <footer class="bg-slate-900 text-white py-8">
-        <div class="container mx-auto px-4 text-center">
-            <p class="mb-2 font-medium">台灣長照 3.0 資訊專區</p>
-            <p class="text-slate-500 text-sm">Design by AI Assistant</p>
-        </div>
-    </footer>
-
-    <!-- JavaScript -->
     <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
+        let currentIndex = 0;
+        const totalSlides = 3;
+        let isAnimating = false;
+        const animationTime = 1600; 
 
-        // Timeline Data
-        const timelineEvents = [
-            {
-                year: '2007',
-                title: '長照 1.0 十年計畫',
-                desc: '建立基礎長照體系，主要針對低收入戶與重度失能者，服務項目較少。',
-                tag: '起步期'
-            },
-            {
-                year: '2017',
-                title: '長照 2.0 正式上路',
-                desc: '擴大服務對象與項目，建立 ABC 社區整體照顧模式，預算大幅增加。',
-                tag: '擴張期'
-            },
-            {
-                year: '2024',
-                title: '提出「健康台灣」願景',
-                desc: '賴清德總統競選期間提出長照 3.0 構想，強調醫養合一與永續發展。',
-                tag: '規劃期'
-            },
-            {
-                year: '2025.09',
-                title: '3.0 第一階段啟動',
-                desc: '放寬聘僱外籍看護家庭使用社區照顧服務；擴大交通與營養服務額度。',
-                tag: '轉型期'
-            },
-            {
-                year: '2026.01',
-                title: '3.0 第二階段：對象擴大',
-                desc: '納入年輕型失智者、急性後期整合照護（PAC）對象，強化醫療銜接。',
-                tag: '深化期'
-            },
-            {
-                year: '2026.07',
-                title: '3.0 第三階段：智慧導入',
-                desc: '智慧科技輔具租賃新制上路，提供每人 3 年 6 萬元額度，全面推動智慧照顧。',
-                tag: '智慧期'
+        const bgSlides = document.querySelectorAll('.bg-slide');
+        const visualItems = document.querySelectorAll('.visual-item'); 
+        const texts = document.querySelectorAll('.text-item');
+        const dots = document.querySelectorAll('.dot');
+
+        // 初始化：全部設定為圓形 (第一頁)
+        updateGlobalDots(0);
+
+        window.addEventListener('wheel', (e) => {
+            if (isAnimating) return;
+            if (e.deltaY > 0) {
+                let next = (currentIndex + 1) % totalSlides;
+                moveNext(currentIndex, next);
+            } else {
+                let next = (currentIndex - 1 + totalSlides) % totalSlides;
+                movePrev(currentIndex, next);
             }
-        ];
-
-        const timelineContainer = document.getElementById('timeline-container');
-
-        // Render Timeline
-        timelineEvents.forEach((event, index) => {
-            const isLeft = index % 2 === 0;
-            const itemHTML = `
-                <div class="timeline-item flex flex-col md:flex-row items-center mb-12 group cursor-pointer transition-all duration-300" onclick="highlightItem(${index})">
-                    <!-- Left Content (Desktop) / Date (Mobile) -->
-                    <div class="w-full md:w-1/2 flex justify-start md:justify-end px-4 mb-4 md:mb-0 ${isLeft ? 'md:order-1' : 'md:order-3'}">
-                        <div class="timeline-content bg-white p-6 rounded-lg shadow-md border-l-4 ${isLeft ? 'border-orange-500' : 'border-teal-500'} max-w-sm w-full relative">
-                            <span class="absolute top-4 right-4 text-xs font-bold text-slate-300">#${index + 1}</span>
-                            <div class="inline-block px-2 py-1 mb-2 text-xs font-semibold rounded ${isLeft ? 'bg-orange-100 text-orange-600' : 'bg-teal-100 text-teal-600'}">
-                                ${event.year}
-                            </div>
-                            <h3 class="text-lg font-bold text-slate-800 mb-2">${event.title}</h3>
-                            <p class="text-slate-600 text-sm leading-relaxed">${event.desc}</p>
-                        </div>
-                    </div>
-
-                    <!-- Center Dot -->
-                    <div class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full border-4 border-white shadow bg-slate-300 group-hover:bg-orange-400 transition z-10 timeline-dot md:order-2"></div>
-                    
-                    <!-- Spacer for layout balance -->
-                    <div class="w-full md:w-1/2 hidden md:block ${isLeft ? 'md:order-3' : 'md:order-1'}"></div>
-                </div>
-            `;
-            timelineContainer.innerHTML += itemHTML;
         });
 
-        // Interactive Highlight Logic
-        function highlightItem(index) {
-            const items = document.querySelectorAll('.timeline-item');
-            items.forEach((item, i) => {
-                if (i === index) {
-                    item.classList.add('active');
-                    // Scroll active item into slightly better view if needed
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                if (isAnimating || index === currentIndex) return;
+                if (index > currentIndex) moveNext(currentIndex, index);
+                else movePrev(currentIndex, index);
+            });
+        });
+
+        function moveNext(current, next) {
+            isAnimating = true;
+            updateStaticLayers(current, next);
+
+            animateTo(visualItems[current], 'pos-top');
+            animateTo(texts[current], 'pos-left');
+
+            teleportAndSlide(visualItems[next], 'pos-bottom', 'pos-center');
+            teleportAndSlide(texts[next], 'pos-right', 'pos-center');
+
+            currentIndex = next;
+            setTimeout(() => isAnimating = false, animationTime);
+        }
+
+        function movePrev(current, next) {
+            isAnimating = true;
+            updateStaticLayers(current, next);
+
+            animateTo(visualItems[current], 'pos-bottom');
+            animateTo(texts[current], 'pos-right');
+
+            teleportAndSlide(visualItems[next], 'pos-top', 'pos-center');
+            teleportAndSlide(texts[next], 'pos-left', 'pos-center');
+
+            currentIndex = next;
+            setTimeout(() => isAnimating = false, animationTime);
+        }
+
+        function updateStaticLayers(currIdx, nextIdx) {
+            bgSlides[currIdx].classList.remove('active');
+            bgSlides[nextIdx].classList.add('active');
+            
+            // 觸發全體點的變形動畫
+            updateGlobalDots(nextIdx);
+        }
+
+        // 新功能：控制所有點一起變形與縮放
+        function updateGlobalDots(targetIndex) {
+            // 定義每個頁面對應的動畫 class
+            const animClasses = ['anim-circle', 'anim-square', 'anim-diamond'];
+            const targetClass = animClasses[targetIndex];
+
+            dots.forEach((dot, index) => {
+                // 1. 處理實心/空心狀態 (僅影響 background-color)
+                if (index === targetIndex) {
+                    dot.classList.add('current');
                 } else {
-                    item.classList.remove('active');
+                    dot.classList.remove('current');
                 }
+
+                // 2. 處理全體變形動畫
+                // 移除所有舊動畫
+                dot.classList.remove('anim-circle', 'anim-square', 'anim-diamond');
+                
+                // 強制 Reflow 以重置動畫
+                void dot.offsetWidth;
+
+                // 加入新動畫：這會讓點執行 縮小 -> 變形 -> 放大
+                dot.classList.add(targetClass);
             });
         }
 
-        // Auto-highlight on scroll (Simple Intersection Observer)
-        const observerOptions = {
-            root: null,
-            rootMargin: '-20% 0px -20% 0px',
-            threshold: 0.1
-        };
+        function animateTo(el, destinationClass) {
+            el.classList.remove('pos-center', 'pos-top', 'pos-bottom', 'pos-left', 'pos-right');
+            el.classList.add(destinationClass);
+        }
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                } else {
-                    entry.target.classList.remove('active');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.timeline-item').forEach(item => {
-            observer.observe(item);
-        });
-
+        function teleportAndSlide(el, startClass, endClass) {
+            el.classList.add('no-anim');
+            el.classList.remove('pos-center', 'pos-top', 'pos-bottom', 'pos-left', 'pos-right');
+            el.classList.add(startClass);
+            void el.offsetWidth;
+            el.classList.remove('no-anim');
+            el.classList.remove(startClass);
+            el.classList.add(endClass);
+        }
     </script>
 </body>
 </html>

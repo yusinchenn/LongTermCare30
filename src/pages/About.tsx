@@ -12,7 +12,7 @@ function About() {
         </p>
       </section>
 
-      <section className="intro">
+      <section className="intro" id="intro">
         <h2>什麼是長照 3.0？</h2>
         <p>
           隨著台灣即將進入超高齡社會，衛福部規劃於 2026 年（民國 115 年）正式推動「長照 3.0」。
@@ -22,7 +22,7 @@ function About() {
         </p>
       </section>
 
-      <section className="strategies">
+      <section className="strategies" id="strategies">
         <h2>衛福部規劃八大重點目標</h2>
         <div className="strategy-cards">
           <div className="strategy-card orange">
@@ -60,7 +60,7 @@ function About() {
         </div>
       </section>
 
-      <section className="timeline">
+      <section className="timeline" id="timeline">
         <h2>台灣長照政策演進</h2>
         <div className="timeline-items">
           <div className="timeline-item">
@@ -114,7 +114,7 @@ function About() {
         </div>
       </section>
 
-      <section className="abc-system">
+      <section className="abc-system" id="abc">
         <h2>ABC 三級據點介紹</h2>
         <div className="abc-cards">
           <div className="abc-card a-level">
@@ -132,7 +132,7 @@ function About() {
         </div>
       </section>
 
-      <section className="comparison">
+      <section className="comparison" id="comparison">
         <h2>長照 2.0 vs 長照 3.0 超級比一比</h2>
         <div className="comparison-table">
           <table>
@@ -174,7 +174,7 @@ function About() {
         </div>
       </section>
 
-      <section className="services-info">
+      <section className="services-info" id="services">
         <h2>主要服務內容</h2>
         <ul>
           <li>照顧及專業服務</li>

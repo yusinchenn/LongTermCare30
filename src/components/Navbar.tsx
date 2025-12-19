@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import './Navbar.css';
 
 function Navbar() {
@@ -11,19 +11,19 @@ function Navbar() {
 
         <ul className="nav-menu">
           <li className="nav-item">
-            <Link to="/" className="nav-link">首頁</Link>
+            <NavLink to="/" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`} end>首頁</NavLink>
           </li>
           <li className="nav-item">
-            <Link to="/about" className="nav-link">認識長照</Link>
+            <NavLink to="/about" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>認識長照</NavLink>
           </li>
           <li className="nav-item">
-            <Link to="/map" className="nav-link">據點地圖</Link>
+            <NavLink to="/map" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>據點地圖</NavLink>
           </li>
           <li className="nav-item">
-            <Link to="/resources" className="nav-link">長照資源</Link>
+            <NavLink to="/resources" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>長照資源</NavLink>
           </li>
           <li className="nav-item">
-            <Link to="/help" className="nav-link">聯絡協助</Link>
+            <NavLink to="/help" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>聯絡協助</NavLink>
           </li>
         </ul>
 

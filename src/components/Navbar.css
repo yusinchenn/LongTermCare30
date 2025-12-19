@@ -72,9 +72,8 @@
 
 /* 當前頁面 - 使用顏色深度區分 */
 .nav-link.active {
-  color: var(--primary-dark);
+  color: var(--primary-color);
   font-weight: 600;
-  background: rgba(42, 169, 180, 0.08);
 }
 
 /* 熱線按鈕 - 新中式印章風格 */
@@ -114,18 +113,6 @@
 .nav-hotline:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(42, 169, 180, 0.3);
-}
-
-/* 熱線按鈕裝飾角 */
-.nav-hotline::after {
-  content: '';
-  position: absolute;
-  top: 3px;
-  right: 3px;
-  width: 8px;
-  height: 8px;
-  border-top: 2px solid rgba(255,255,255,0.4);
-  border-right: 2px solid rgba(255,255,255,0.4);
 }
 
 .hotline-icon {
