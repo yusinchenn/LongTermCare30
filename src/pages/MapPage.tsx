@@ -41,16 +41,47 @@ interface FacilityData {
   縣市名稱?: string;
 }
 
+// Haversine 公式計算兩點距離（公里）
+function calculateDistance(
+  lat1: number,
+  lon1: number,
+  lat2: number,
+  lon2: number
+): number {
+  const R = 6371; // 地球半徑（公里）
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLon = ((lon2 - lon1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
+
 function MapPage() {
   const mapRef = useRef<L.Map | null>(null);
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const markersRef = useRef<L.MarkerClusterGroup | null>(null);
+  const userMarkerRef = useRef<L.Marker | null>(null);
 
   const [dataCache, setDataCache] = useState<FacilityData[]>([]);
   const [selectedCity, setSelectedCity] = useState('');
   const [selectedGrade, setSelectedGrade] = useState('');
   const [cities, setCities] = useState<string[]>([]);
   const [filteredCount, setFilteredCount] = useState(0);
+
+  // 地址搜尋相關狀態
+  const [searchAddress, setSearchAddress] = useState('');
+  const [searchRadius, setSearchRadius] = useState<number>(3); // 預設 3 公里
+  const [userLocation, setUserLocation] = useState<{
+    lat: number;
+    lng: number;
+  } | null>(null);
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchError, setSearchError] = useState('');
 
   // 初始化地圖
   useEffect(() => {
@@ -101,6 +132,61 @@ function MapPage() {
       });
   }, []);
 
+  // 地址搜尋函數
+  const handleAddressSearch = async () => {
+    if (!searchAddress.trim()) {
+      setSearchError('請輸入地址');
+      return;
+    }
+
+    setIsSearching(true);
+    setSearchError('');
+
+    try {
+      // 使用 OpenStreetMap Nominatim API 進行地址轉換
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+          searchAddress
+        )}&countrycodes=tw&limit=1`,
+        {
+          headers: {
+            'Accept-Language': 'zh-TW',
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      if (data && data.length > 0) {
+        const { lat, lon } = data[0];
+        const newLocation = { lat: parseFloat(lat), lng: parseFloat(lon) };
+        setUserLocation(newLocation);
+
+        // 移動地圖到搜尋位置
+        if (mapRef.current) {
+          mapRef.current.setView([newLocation.lat, newLocation.lng], 14);
+        }
+      } else {
+        setSearchError('找不到此地址，請嘗試其他關鍵字');
+      }
+    } catch (error) {
+      console.error('地址搜尋失敗:', error);
+      setSearchError('搜尋失敗，請稍後再試');
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  // 清除搜尋
+  const clearSearch = () => {
+    setSearchAddress('');
+    setUserLocation(null);
+    setSearchError('');
+    if (mapRef.current) {
+      mapRef.current.setView([23.7, 120.9], 7);
+    }
+  };
+
   // 渲染標記
   useEffect(() => {
     if (!mapRef.current || dataCache.length === 0) return;
@@ -110,15 +196,52 @@ function MapPage() {
       mapRef.current.removeLayer(markersRef.current);
     }
 
+    // 清除舊的使用者位置標記
+    if (userMarkerRef.current) {
+      mapRef.current.removeLayer(userMarkerRef.current);
+      userMarkerRef.current = null;
+    }
+
     // 建立新的標記群組
     const markers = L.markerClusterGroup();
 
     // 篩選資料
-    const filtered = dataCache.filter(
+    let filtered = dataCache.filter(
       (d) =>
         (!selectedCity || d.縣市名稱 === selectedCity) &&
         (!selectedGrade || d.O_ABC === selectedGrade)
     );
+
+    // 如果有使用者位置，進一步篩選距離
+    if (userLocation) {
+      filtered = filtered.filter((d) => {
+        const lat = parseFloat(d.緯度);
+        const lng = parseFloat(d.經度);
+        if (isNaN(lat) || isNaN(lng)) return false;
+        const distance = calculateDistance(
+          userLocation.lat,
+          userLocation.lng,
+          lat,
+          lng
+        );
+        return distance <= searchRadius;
+      });
+
+      // 加入使用者位置標記
+      const userIcon = L.divIcon({
+        className: 'user-location-marker',
+        html: '<div class="user-marker-inner"></div>',
+        iconSize: [20, 20],
+        iconAnchor: [10, 10],
+      });
+
+      const userMarker = L.marker([userLocation.lat, userLocation.lng], {
+        icon: userIcon,
+      });
+      userMarker.bindPopup('<b>您搜尋的位置</b>');
+      userMarker.addTo(mapRef.current);
+      userMarkerRef.current = userMarker;
+    }
 
     setFilteredCount(filtered.length);
 
@@ -128,10 +251,15 @@ function MapPage() {
       const lng = parseFloat(d.經度);
 
       if (!isNaN(lat) && !isNaN(lng)) {
+        const distance = userLocation
+          ? calculateDistance(userLocation.lat, userLocation.lng, lat, lng)
+          : null;
+
         const marker = L.marker([lat, lng]);
         marker.bindPopup(`
           <div style="min-width: 200px;">
             <b style="font-size: 16px; color: #2aa9b4;">${d.機構名稱}</b><br><br>
+            ${distance !== null ? `<b>距離：</b>${distance.toFixed(2)} 公里<br>` : ''}
             <b>特約服務項目：</b>${d.特約服務項目 || '無'}<br>
             <b>地址：</b>${d.地址全址}<br>
             <b>電話：</b>${d.機構電話 || '無'}<br>
@@ -144,7 +272,7 @@ function MapPage() {
 
     mapRef.current.addLayer(markers);
     markersRef.current = markers;
-  }, [dataCache, selectedCity, selectedGrade]);
+  }, [dataCache, selectedCity, selectedGrade, userLocation, searchRadius]);
 
   return (
     <div className="map-page">
@@ -199,8 +327,51 @@ function MapPage() {
             </div>
           </div>
 
+          <div className="filter-group address-search">
+            <label>地址搜尋</label>
+            <div className="search-input-group">
+              <input
+                type="text"
+                placeholder="輸入地址尋找附近據點..."
+                value={searchAddress}
+                onChange={(e) => setSearchAddress(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleAddressSearch()}
+              />
+              <button
+                className="search-btn"
+                onClick={handleAddressSearch}
+                disabled={isSearching}
+              >
+                {isSearching ? '搜尋中...' : '搜尋'}
+              </button>
+            </div>
+            {searchError && <p className="search-error">{searchError}</p>}
+
+            <label>搜尋範圍</label>
+            <div className="radius-buttons">
+              {[1, 3, 5, 10].map((km) => (
+                <button
+                  key={km}
+                  className={searchRadius === km ? 'active' : ''}
+                  onClick={() => setSearchRadius(km)}
+                >
+                  {km} km
+                </button>
+              ))}
+            </div>
+
+            {userLocation && (
+              <button className="clear-search-btn" onClick={clearSearch}>
+                清除搜尋
+              </button>
+            )}
+          </div>
+
           <div className="filter-info">
-            <p>顯示 {filteredCount} 個據點</p>
+            <p>
+              顯示 {filteredCount} 個據點
+              {userLocation && ` (${searchRadius} 公里內)`}
+            </p>
           </div>
         </aside>
 
