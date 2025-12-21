@@ -87,20 +87,6 @@ function Help() {
         </div>
       </section>
 
-      <section className="accessibility-section">
-        <h2>無障礙使用說明</h2>
-        <div className="accessibility-info">
-          <p>本網站遵循無障礙網頁設計原則，提供以下功能：</p>
-          <ul>
-            <li>✓ 支援鍵盤導航</li>
-            <li>✓ 高對比度顯示</li>
-            <li>✓ 清晰易讀的字體</li>
-            <li>✓ 語意化的 HTML 結構</li>
-            <li>✓ 螢幕閱讀器友善</li>
-          </ul>
-          <p>若您在使用上遇到任何問題，歡迎撥打 1966 反映。</p>
-        </div>
-      </section>
     </div>
   );
 }
