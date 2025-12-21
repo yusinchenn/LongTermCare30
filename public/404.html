@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>長照 3.0 資訊網</title>
+    <script>
+      // GitHub Pages SPA 路由處理
+      // 將 404 頁面的路徑轉換為查詢參數，重導向到首頁
+      const path = window.location.pathname;
+      const search = window.location.search;
+      const hash = window.location.hash;
+      window.location.replace(
+        window.location.origin + '/LongTermCare30/?redirect=' +
+        encodeURIComponent(path + search + hash)
+      );
+    </script>
+  </head>
+  <body>
+    <p>正在重導向...</p>
+  </body>
+</html>

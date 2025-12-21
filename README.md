@@ -1,73 +1,45 @@
-# React + TypeScript + Vite
+# 長照 3.0 資訊網
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+一站式長照政策資訊平台，整合長照 3.0 政策介紹、全國服務據點地圖、資源試算工具及常見問題解答，協助民眾快速了解並取得長照服務。
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 設計理念
 
-## React Compiler
+以「新中式美學」為核心概念，將傳統東方意象融入現代網頁設計。透過水墨暈染、回字紋邊框、章印點綴等視覺元素，傳達長照服務「溫暖陪伴、在地扎根」的精神意涵。整體設計追求「簡約而不簡單」，在清晰的資訊架構中注入人文溫度，讓使用者在瀏覽時感受到安心與信任。
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 視覺風格
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| 項目 | 說明 |
+|------|------|
+| **主色調** | 青碧色 (`#2aa9b4`) — 清新、專業、信任感 |
+| **輔助色** | 古金色 (`#e4be57`) — 溫暖、典雅、點睛效果 |
+| **背景色** | 宣紙白 (`#faf8f5`) — 柔和、舒適的閱讀體驗 |
+| **主字體** | Noto Serif TC (思源宋體) — 兼具古典韻味與現代可讀性 |
+| **裝飾元素** | 中式邊框、回字紋、水墨暈染、印章效果 |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 網頁結構
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+網站共分為五大部分：
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+1. **首頁** — 全螢幕動態輪播，快速傳達長照 3.0 核心理念，並提供站內即時搜尋功能
+2. **認識長照** — 完整介紹長照 3.0 政策沿革、八大目標、與 2.0 的差異比較及申請流程
+3. **據點地圖** — 互動式地圖查詢全國長照服務據點，支援縣市篩選、等級分類及地址搜尋
+4. **長照資源** — 彙整官方資源連結、補助試算工具、申請文件及教學影片
+5. **聯絡協助** — 常見問題解答、1966 長照專線資訊及機構查詢入口
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 製作技術
+
+| 類別 | 技術 |
+|------|------|
+| **前端框架** | React 19 + TypeScript |
+| **建置工具** | Vite |
+| **路由管理** | React Router DOM |
+| **地圖功能** | Leaflet + MarkerCluster |
+| **樣式設計** | CSS Variables + 響應式設計 |
