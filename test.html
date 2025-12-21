@@ -1,475 +1,129 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>長照 3.0 資源導覽</title>
-    <style>
-        /* --- 基礎設定 --- */
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: #111;
-            font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
-        }
+以下整理 **台灣長照3.0（Long-term Care Plan 3.0）** 的 **申請流程、申請資格與補助額度（補助重點）**，幫你一次看懂目前最新制度與實務重點：
 
-        .layer-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
+---
 
-        /* --- 1. 底圖層 --- */
-        .bg-slide {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            transition: opacity 1.2s ease-in-out;
-            z-index: 1;
-            filter: brightness(0.5);
-        }
-        .bg-slide.active {
-            opacity: 1;
-        }
+## 📌 一、申請流程（長照服務如何開始）
 
-        /* --- 2. 文字層 --- */
-        .text-wrapper {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 5;
-            pointer-events: none; 
-        }
+申請長照服務的基本步驟如下，這個流程在 **長照2.0 與 3.0** 都適用，3.0 主要是在內容與資格上擴大： ([長照專區][1])
 
-        .text-item {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transform: translateX(100vw);
-            display: flex;
-            box-sizing: border-box;
-        }
+1. **提出申請**
 
-        .layout-bottom-right {
-            justify-content: flex-end;
-            align-items: flex-end;
-            padding-bottom: 15vh;
-            padding-right: 10vw;
-            text-align: right;
-        }
+   * 拨打 **長照專線 1966** 申請（手機/市話皆可）。
+   * 聯絡當地 **長期照顧管理中心**（衛生局健康中心）申請。
+   * 若住院時有照護需求，可由 **醫院出院準備銜接團隊** 協助申請。
+   * 多數縣市也提供 **線上申請服務**。 ([長照專區][1])
 
-        .layout-center-below {
-            justify-content: center;
-            align-items: center;
-            padding-top: 120px; 
-        }
+2. **照護管理專員到宅評估**
 
-        /* --- 3. 視覺層 (最上層) --- */
-        .visual-wrapper {
-            position: absolute;
-            top: 0; 
-            left: 0;
-            width: 100%; 
-            height: 100%;
-            z-index: 10; 
-            pointer-events: none; 
-        }
+   * 管理中心會派 **照顧管理專員（照專）** 到家中訪視，評估生活功能（生活自理能力、環境安全等）。
+   * 根據評估結果判定 **長照需要等級及補助給付額度**。 ([長照專區][1])
 
-        .visual-item {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transform: translateY(100vh);
-            display: flex;
-            box-sizing: border-box;
-            pointer-events: none;
-        }
+3. **擬定「個別化照顧計畫」**
 
-        .layout-top-left {
-            justify-content: flex-start;
-            align-items: flex-start;
-            padding-top: 15vh;
-            padding-left: 10vw;
-        }
+   * 照專會與個案/家屬共同討論需要的服務項目與時數（如居家照顧、日間照顧等）。
+   * 此照護計畫會明確列出 **補助額度與個案需自付部分**。 ([agingmedical.com.tw][2])
 
-        .layout-center {
-            justify-content: center;
-            align-items: center;
-        }
+4. **接受服務並開始補助**
 
-        /* --- Page 1 Icons --- */
-        .icon-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 60px);
-            gap: 15px;
-            pointer-events: auto;
-        }
-        .icon-box {
-            width: 60px;
-            height: 60px;
-            border: 2px solid rgba(255, 255, 255, 0.8);
-            border-radius: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(4px);
-            transition: transform 0.3s;
-        }
-        .icon-box:hover {
-            transform: scale(1.1);
-            background: rgba(255, 255, 255, 0.2);
-        }
-        .icon-box svg {
-            width: 32px;
-            height: 32px;
-            fill: white;
-        }
+   * 照管中心會媒合合適的 **長照服務提供者** 安排服務開始。 ([長照專區][1])
 
-        /* --- Page 2 Timeline --- */
-        .vertical-timeline {
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1rem;
-            line-height: 2;
-            letter-spacing: 2px;
-            border-right: 3px solid #ec4899;
-            padding-right: 15px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            white-space: pre-line;
-        }
+---
 
-        /* --- Page 3 Search Bar (修改版) --- */
-        .search-container {
-            pointer-events: auto; 
-            display: flex;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(15px);
-            padding: 15px 30px;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-            width: 400px;
-            cursor: text;
-            transition: background 0.3s;
-        }
-        /* 移除原本的 box-shadow: purple... 改為單純背景變亮 */
-        .search-container:hover, .search-container:focus-within {
-            background: rgba(255, 255, 255, 0.3);
-        }
-        
-        /* 搜尋圖示：使用 SVG 取代 Emoji */
-        .search-icon-svg {
-            width: 24px;
-            height: 24px;
-            fill: white;
-            margin-right: 15px;
-            flex-shrink: 0;
-        }
+## 👥 二、申請資格（哪些人可以申請）
 
-        .search-input {
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 1.2rem;
-            width: 100%;
-            outline: none;
-        }
-        .search-input::placeholder {
-            color: rgba(255, 255, 255, 0.8);
-        }
+在 **長照3.0** 下，申請資格比之前更廣，大致如下（各縣市可能略有細節不同）： ([耆寓日間照顧][3])
 
-        /* --- 字體樣式 --- */
-        .main-title {
-            font-size: 3.5rem;
-            font-weight: bold;
-            color: white;
-            text-shadow: 0 5px 20px rgba(0,0,0,0.6);
-            line-height: 1.3;
-        }
-        .num-large {
-            font-size: 5rem;
-            font-family: 'Arial Black', sans-serif;
-            vertical-align: bottom;
-        }
-        .arrow-thin {
-            font-size: 2.5rem;
-            font-weight: 100;
-            font-family: sans-serif;
-            opacity: 0.8;
-            margin: 0 10px;
-            vertical-align: middle;
-            position: relative;
-            top: -5px;
-        }
+🔹 主要資格條件（任一符合即可申請）：
 
-        /* --- 動畫 Helper Classes --- */
-        .anim-transition {
-            transition: transform 1.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.6s ease;
-        }
-        .pos-center { opacity: 1 !important; transform: translate(0, 0) !important; }
-        .pos-top    { opacity: 0 !important; transform: translateY(-100vh) !important; }
-        .pos-bottom { opacity: 0 !important; transform: translateY(100vh) !important; }
-        .pos-left   { opacity: 0 !important; transform: translateX(-100vw) !important; }
-        .pos-right  { opacity: 0 !important; transform: translateX(100vw) !important; }
-        .no-anim    { transition: none !important; }
+| 類別                  | 說明               |               |
+| ------------------- | ---------------- | ------------- |
+| **65歲以上失能者**        | 由照專評估生活自理功能需照顧。  |               |
+| **55歲以上原住民失能者**     | 原住民較早進入長照資源門檻。   |               |
+| **50歲以上失智症者**       | 包含失智但未達65歲者。     |               |
+| **全年齡失智且失能者**       | 不受年齡限制的失智+失能狀況者。 |               |
+| **急性後期整合照護對象（PAC）** | 出院後需中期照護支持者。     |               |
+| **身心障礙者**           | 持身心障礙手冊且有照顧需求者。  | ([耆寓日間照顧][3]) |
 
-        /* --- 指示器 (Dots) 與 全體變形動畫 --- */
-        .indicators {
-            position: absolute;
-            right: 30px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 20;
-            display: flex;
-            flex-direction: column;
-            gap: 25px; 
-            pointer-events: auto;
-        }
+✔️ 注意：資格需經 **照顧評估** 判定失能等級才能真正核定可使用的長照服務與補助額度。 ([長照專區][1])
 
-        .dot {
-            width: 12px;
-            height: 12px;
-            background: transparent; /* 預設透明 (空心) */
-            border: 2px solid rgba(255,255,255,0.6);
-            cursor: pointer;
-            box-sizing: border-box; 
-            
-            /* 背景顏色的變化 (實心/空心) 獨立於變形動畫 */
-            transition: background-color 0.5s ease;
-        }
+---
 
-        /* 當前頁面的點變為實心 */
-        .dot.current {
-            background-color: white;
-            box-shadow: 0 0 10px rgba(255,255,255,0.5);
-            border-color: white;
-        }
+## 💰 三、補助額度與內容（重點整理）
 
-        /* --- 變形動畫 Keyframes --- 
-           所有點一起執行：縮小 -> 改變形狀 -> 放大
-        */
+長照3.0 的補助並非固定金額，而是依 **服務項目、失能等級、照護頻率與時數** 去計算給付上限與補助比例。以下整理主要重點：
 
-        /* 第一頁：變成圓形 */
-        @keyframes morphToCircle {
-            0%   { transform: scale(1); }
-            50%  { transform: scale(0.5); border-radius: 50%; } /* 中間縮小 */
-            100% { transform: scale(1.2); border-radius: 50%; } /* 最終回彈 (稍微放大一點點視覺平衡) */
-        }
+### 📌 主要補助服務項目
 
-        /* 第二頁：變成正方形 */
-        @keyframes morphToSquare {
-            0%   { transform: scale(1); }
-            50%  { transform: scale(0.5); border-radius: 2px; transform: scale(0.5) rotate(0deg); } 
-            100% { transform: scale(1.2); border-radius: 0px; transform: scale(1.2) rotate(0deg); }
-        }
+（3.0 依舊沿用2.0的主要照護類別，但內容擴大） ([亞太外勞人力仲介公司][4])
 
-        /* 第三頁：變成菱形 (轉45度) */
-        @keyframes morphToDiamond {
-            0%   { transform: scale(1); }
-            50%  { transform: scale(0.5) rotate(22.5deg); border-radius: 2px; }
-            100% { transform: scale(1.2) rotate(45deg); border-radius: 0px; }
-        }
+✅ 居家照顧服務
+✅ 日間照顧（含復能／社區活動）
+✅ 短期住宿（短期機構照護）
+✅ 輕度與重度喘息照護
+✅ 交通接送
+✅ 輔具與智慧科技輔具租賃補助
+✅ 家庭照顧者支持
+✅ 醫療-長照整合後的照護銜接服務
 
-        /* 用於 JS 套用的 class */
-        .anim-circle {
-            animation: morphToCircle 1.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
-        .anim-square {
-            animation: morphToSquare 1.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
-        .anim-diamond {
-            animation: morphToDiamond 1.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
+---
 
-    </style>
-</head>
-<body>
+### 📌 補助額度與自付（核心規則）
 
-    <div class="layer-container">
-        <img class="bg-slide active" src="https://picsum.photos/1920/1080?random=1" alt="bg1">
-        <img class="bg-slide" src="https://picsum.photos/1920/1080?random=2" alt="bg2">
-        <img class="bg-slide" src="https://picsum.photos/1920/1080?random=3" alt="bg3">
-    </div>
+📍 **政府給付額度**
 
-    <div class="text-wrapper">
-        <div class="text-item layout-bottom-right pos-center anim-transition">
-            <div class="main-title">
-                長照 <span class="num-large">2.0</span> <span class="arrow-thin">→</span> <span class="num-large">3.0</span>
-            </div>
-        </div>
-        <div class="text-item layout-bottom-right pos-right anim-transition">
-            <div class="main-title">
-                健康老化、在地安老、<br>安寧善終
-            </div>
-        </div>
-        <div class="text-item layout-center-below pos-right anim-transition">
-            <div class="main-title">
-                尋找你要的資源
-            </div>
-        </div>
-    </div>
+* 補助額度依 **失能等級** 與 **服務類別** 不同而變動。
+* 補助一般會有 **政府補助部分 + 個案自付部分**（部分縣市依所得不同會有額外補助減免）。 ([agingmedical.com.tw][2])
 
-    <div class="visual-wrapper">
-        <div class="visual-item layout-top-left pos-center anim-transition">
-            <div class="icon-grid">
-                <div class="icon-box"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
-                <div class="icon-box"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div>
-                <div class="icon-box"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
-                <div class="icon-box"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
-                <div class="icon-box"><svg viewBox="0 0 24 24"><circle cx="12" cy="4" r="2"/><path d="M19 13v-2c-1.54.02-3.09-.75-4.07-1.83l-1.29-1.43c-.17-.19-.44-.34-.73-.34-.18 0-.35.06-.49.16l-4.18 2.76 1.05 1.6 2.62-1.73V20h2v-6h2v6h2v-7h1z"/></svg></div>
-            </div>
-        </div>
-        <div class="visual-item layout-top-left pos-bottom anim-transition">
-            <div class="vertical-timeline">
-                2025/09 第一階段
-                2026/01 第二階段
-                2026/07 第三階段
-            </div>
-        </div>
-        <div class="visual-item layout-center pos-bottom anim-transition">
-            <div class="search-container">
-                <svg class="search-icon-svg" viewBox="0 0 24 24">
-                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                </svg>
-                <input type="text" class="search-input" placeholder="輸入長照資源關鍵字...">
-            </div>
-        </div>
-    </div>
+📍 **輔具與智慧科技補助上限**
+最新修正中新增 **智慧科技輔具租賃** 補助，每 **3 年最高可補助 NT$60,000 元**（可彈性租借多類型輔具）。 ([衛生福利部][5])
 
-    <div class="indicators">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-    </div>
+📍 **交通接送補助提高**
+不同地區（一般／原鄉離島）補助費率提高，例如一般地區可至約 NT$115 元／趟左右。 ([fullcare-tech.tw][6])
 
-    <script>
-        let currentIndex = 0;
-        const totalSlides = 3;
-        let isAnimating = false;
-        const animationTime = 1600; 
+📍 **喘息服務與營養照護**
+喘息可更靈活提供（包含戶外）而非限定在家內；營養照護的補助次數與金額也有調整。 ([fullcare-tech.tw][6])
 
-        const bgSlides = document.querySelectorAll('.bg-slide');
-        const visualItems = document.querySelectorAll('.visual-item'); 
-        const texts = document.querySelectorAll('.text-item');
-        const dots = document.querySelectorAll('.dot');
+---
 
-        // 初始化：全部設定為圓形 (第一頁)
-        updateGlobalDots(0);
+### 📌 補助計算與實際應用（舉例）
 
-        window.addEventListener('wheel', (e) => {
-            if (isAnimating) return;
-            if (e.deltaY > 0) {
-                let next = (currentIndex + 1) % totalSlides;
-                moveNext(currentIndex, next);
-            } else {
-                let next = (currentIndex - 1 + totalSlides) % totalSlides;
-                movePrev(currentIndex, next);
-            }
-        });
+因每個個案失能程度差異大，實際補助是 「**上限額度 + 定額補助**」，再扣除個案自付 **較能客製化支援**： ([agingmedical.com.tw][2])
 
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                if (isAnimating || index === currentIndex) return;
-                if (index > currentIndex) moveNext(currentIndex, index);
-                else movePrev(currentIndex, index);
-            });
-        });
+➡️ **例如：**
 
-        function moveNext(current, next) {
-            isAnimating = true;
-            updateStaticLayers(current, next);
+* 一位失能較高的長者可能獲得大量居家照顧服務時數，政府補助給付時數上限也較高。
+* 若申請輔具租賃，根據認定需求，政府會補助契約外租金金額在核定額度內。 ([agingmedical.com.tw][2])
 
-            animateTo(visualItems[current], 'pos-top');
-            animateTo(texts[current], 'pos-left');
+---
 
-            teleportAndSlide(visualItems[next], 'pos-bottom', 'pos-center');
-            teleportAndSlide(texts[next], 'pos-right', 'pos-center');
+## ✅ 申請前準備（實用清單）
 
-            currentIndex = next;
-            setTimeout(() => isAnimating = false, animationTime);
-        }
+建議在申請前先準備：
 
-        function movePrev(current, next) {
-            isAnimating = true;
-            updateStaticLayers(current, next);
+📌 身分證、健保卡
+📌 身心障礙手冊（如有）
+📌 醫療證明或診斷報告（如失智、重大傷病等）
+📌 照護需求書面資料（如家屬觀察）
+📌 聯絡人與家庭照護狀況簡述
 
-            animateTo(visualItems[current], 'pos-bottom');
-            animateTo(texts[current], 'pos-right');
+這些資料在評估時能 **加速判定** 並提升準確性。 ([亞太外勞人力仲介公司][7])
 
-            teleportAndSlide(visualItems[next], 'pos-top', 'pos-center');
-            teleportAndSlide(texts[next], 'pos-left', 'pos-center');
+---
 
-            currentIndex = next;
-            setTimeout(() => isAnimating = false, animationTime);
-        }
+## 📌 小提醒
 
-        function updateStaticLayers(currIdx, nextIdx) {
-            bgSlides[currIdx].classList.remove('active');
-            bgSlides[nextIdx].classList.add('active');
-            
-            // 觸發全體點的變形動畫
-            updateGlobalDots(nextIdx);
-        }
+🔹 長照3.0 是 **持續升級的制度**，部份政策會分階段上路（2025/9 起第一階段、2026 起第二階段、第三階段）。 ([萬通人力][8])
+🔹 實際核定補助額度與給付標準由 **照管中心與照顧管理專員評估後決定**。
 
-        // 新功能：控制所有點一起變形與縮放
-        function updateGlobalDots(targetIndex) {
-            // 定義每個頁面對應的動畫 class
-            const animClasses = ['anim-circle', 'anim-square', 'anim-diamond'];
-            const targetClass = animClasses[targetIndex];
+---
 
-            dots.forEach((dot, index) => {
-                // 1. 處理實心/空心狀態 (僅影響 background-color)
-                if (index === targetIndex) {
-                    dot.classList.add('current');
-                } else {
-                    dot.classList.remove('current');
-                }
+如你需要，我也可以整理 **不同失能等級的典型補助範例表格**（例如 失能1級〜8級 每月能領到大約哪些服務時數或金額）或 **申請時常遇到的問題與解答懶人包**—要不要一起補上？
 
-                // 2. 處理全體變形動畫
-                // 移除所有舊動畫
-                dot.classList.remove('anim-circle', 'anim-square', 'anim-diamond');
-                
-                // 強制 Reflow 以重置動畫
-                void dot.offsetWidth;
-
-                // 加入新動畫：這會讓點執行 縮小 -> 變形 -> 放大
-                dot.classList.add(targetClass);
-            });
-        }
-
-        function animateTo(el, destinationClass) {
-            el.classList.remove('pos-center', 'pos-top', 'pos-bottom', 'pos-left', 'pos-right');
-            el.classList.add(destinationClass);
-        }
-
-        function teleportAndSlide(el, startClass, endClass) {
-            el.classList.add('no-anim');
-            el.classList.remove('pos-center', 'pos-top', 'pos-bottom', 'pos-left', 'pos-right');
-            el.classList.add(startClass);
-            void el.offsetWidth;
-            el.classList.remove('no-anim');
-            el.classList.remove(startClass);
-            el.classList.add(endClass);
-        }
-    </script>
-</body>
-</html>
+[1]: https://1966.gov.tw/LTC/cp-6533-70777-207.html?utm_source=chatgpt.com "申請長照服務- 衛福部長照專區(1966專線)"
+[2]: https://agingmedical.com.tw/newsDetailed.php?ID=439&utm_source=chatgpt.com "台灣長照3.0 政策：掌握最新申請流程與補助項目(2025-10-14)"
+[3]: https://qi-yu.com.tw/blog/longterm-care/how-to-apply-ltc-3/?utm_source=chatgpt.com "長照3.0將上路｜最新長照服務及補助申請一次看懂"
+[4]: https://asiapacific.tw/long-term-care3-0/?utm_source=chatgpt.com "長照3.0新制上路！有請外籍看護也能申請"
+[5]: https://www.mohw.gov.tw/cp-18-82814-1.html?utm_source=chatgpt.com "衛生福利部公告長期照顧服務申請及給付辦法部分條文修正"
+[6]: https://fullcare-tech.tw/fullcare_3-1.php?utm_source=chatgpt.com "長照與身障補助申請資訊"
+[7]: https://asiapacific.tw/long-term-care/?utm_source=chatgpt.com "流程、補助與費用｜一次搞懂長照3.0新制服務內容"
+[8]: https://mimd.com.tw/blog/long-term-care?utm_source=chatgpt.com "長照3.0是什麼？長照3.0 衛福部八大目標計劃，升級長照2.0"

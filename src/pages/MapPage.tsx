@@ -209,6 +209,24 @@ function MapPage() {
         </div>
       </div>
 
+      <section className="abc-system">
+        <h2>ABC 三級據點介紹</h2>
+        <div className="abc-cards">
+          <div className="abc-card a-level">
+            <h3>A 級：社區整合型服務中心</h3>
+            <p>提供個案管理服務，整合社區照顧資源，協助民眾取得所需的長照服務。</p>
+          </div>
+          <div className="abc-card b-level">
+            <h3>B 級：複合型服務中心</h3>
+            <p>提供日間照顧、居家服務、喘息服務等多元照顧服務。</p>
+          </div>
+          <div className="abc-card c-level">
+            <h3>C 級：巷弄長照站</h3>
+            <p>提供預防及延緩失能的健康促進活動，讓長者在社區中活躍老化。</p>
+          </div>
+        </div>
+      </section>
+
       <section className="site-list">
         <h2>使用說明</h2>
         <ul className="info-list">
