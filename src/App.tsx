@@ -30,7 +30,7 @@ function ScrollToHash() {
 
 function App() {
   return (
-    <Router>
+    <Router basename="/LongTermCare30">
       <ScrollToHash />
       <div className="app">
         <Navbar />
