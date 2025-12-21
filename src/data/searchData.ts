@@ -258,7 +258,7 @@ export const searchData: SearchItem[] = [
     title: '什麼人可以申請長照？',
     keywords: ['誰', '什麼人', '可以申請', '申請資格', '條件'],
     description: '65 歲以上失能、失智、身心障礙者等皆可申請',
-    link: '/help',
+    link: '/help#faq',
     category: '常見問題'
   },
   {
@@ -266,7 +266,7 @@ export const searchData: SearchItem[] = [
     title: '長照服務要付多少錢？',
     keywords: ['錢', '費用', '付費', '自付', '免費', '要錢嗎', '收費'],
     description: '低收入戶全額補助，一般戶自付 16-30%',
-    link: '/help',
+    link: '/help#faq',
     category: '常見問題'
   },
   {
@@ -274,7 +274,7 @@ export const searchData: SearchItem[] = [
     title: 'ABC 據點有什麼不同？',
     keywords: ['ABC', '不同', '差別', '區別', 'A級B級C級'],
     description: 'A 級個案管理、B 級日照居家、C 級預防活動',
-    link: '/help',
+    link: '/help#faq',
     category: '常見問題'
   },
   {
@@ -282,15 +282,23 @@ export const searchData: SearchItem[] = [
     title: '如何查詢長照據點？',
     keywords: ['查詢', '找', '怎麼找', '去哪裡', '在哪'],
     description: '可透過本站地圖、1966 專線或衛福部網站查詢',
-    link: '/help',
+    link: '/help#faq',
+    category: '常見問題'
+  },
+  {
+    id: 'help-hotline',
+    title: '長照專線 1966',
+    keywords: ['1966', '電話', '專線', '諮詢', '服務時間'],
+    description: '週一至週五 08:30-17:30 長照服務諮詢專線',
+    link: '/help#hotline',
     category: '常見問題'
   },
   {
     id: 'help-contact',
-    title: '聯絡協助',
-    keywords: ['聯絡', '協助', '幫助', '問題', '聯繫', '詢問'],
-    description: '取得長照相關協助與諮詢',
-    link: '/help',
+    title: '機構查詢入口',
+    keywords: ['聯絡', '協助', '幫助', '機構', '查詢', '聯繫'],
+    description: '長照服務資源地理地圖與官方網站連結',
+    link: '/help#contact',
     category: '常見問題'
   }
 ];

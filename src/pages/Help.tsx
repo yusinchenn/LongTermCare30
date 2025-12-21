@@ -5,7 +5,7 @@ function Help() {
     <div className="help">
       <h1>聯絡與協助</h1>
 
-      <section className="hotline-section">
+      <section className="hotline-section" id="hotline">
         <div className="hotline-card">
           <h2>長照專線</h2>
           <p className="phone-number">1966</p>
@@ -16,7 +16,7 @@ function Help() {
         </div>
       </section>
 
-      <section className="faq-section">
+      <section className="faq-section" id="faq">
         <h2>常見問題</h2>
 
         <div className="faq-list">
@@ -73,7 +73,7 @@ function Help() {
         </div>
       </section>
 
-      <section className="contact-section">
+      <section className="contact-section" id="contact">
         <h2>機構查詢入口</h2>
         <div className="contact-links">
           <a href="https://ltcpap.mohw.gov.tw/" target="_blank" rel="noopener noreferrer" className="contact-link">
