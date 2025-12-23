@@ -110,7 +110,7 @@ function MapPage() {
 
   // 載入資料
   useEffect(() => {
-    fetch('/abc.json')
+    fetch(`${import.meta.env.BASE_URL}abc.json`)
       .then((res) => res.json())
       .then((data: FacilityData[]) => {
         // 從地址擷取縣市名稱
